@@ -44,15 +44,8 @@ export interface LangConfig {
   stringSplitMethod: string;
   stringContainsMethod: string;
 
-  // equalsMethodName is the magic method evalExpr.ts's BinaryExpression
-  // case looks for on a HariObject operand of ==/!= (operator overloading).
-  // Mirrors Go's vm/config.go EqualsMethodName — was hardcoded to "기호 같다"
-  // regardless of language until a real kanade-docs example was found to
-  // never match (verified against hana.exe).
-  equalsMethodName: string;
-
-  // operatorMethods names the method each arithmetic or comparison operator
-  // calls on an object on its left, by the operator's symbol (spec 3.5).
+  // operatorMethods names the method each operator calls on an object on its
+  // left, by the operator's symbol ("==" for both == and !=; spec 3.5).
   // Mirrors Go's magic.Hari / magic.Kanade.
   operatorMethods: Record<string, string>;
 
@@ -107,8 +100,7 @@ export const KoreanConfig: LangConfig = {
   stringReplaceMethod: "바꾸기",
   stringSplitMethod: "분리하기",
   stringContainsMethod: "포함확인",
-  equalsMethodName: "기호 같다",
-  operatorMethods: { "+": "기호 더하기", "-": "기호 빼기", "*": "기호 곱하기", "/": "기호 나누기", "%": "기호 나머지", ">": "기호 크다", "<": "기호 작다", ">=": "기호 이상", "<=": "기호 이하" },
+  operatorMethods: { "==": "기호 같다", "+": "기호 더하기", "-": "기호 빼기", "*": "기호 곱하기", "/": "기호 나누기", "%": "기호 나머지", ">": "기호 크다", "<": "기호 작다", ">=": "기호 이상", "<=": "기호 이하" },
   locale: "ko",
   types: { number: "숫자", string: "문자열", boolean: "논리", any: "아무거나", list: "목록", dict: "사전", null: "비어있음" },
 };

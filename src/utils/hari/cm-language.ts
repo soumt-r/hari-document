@@ -41,7 +41,7 @@ const hariParser: StreamParser<unknown> = {
     if (stream.match(/^"(?:\\[\s\S]|[^"\\])*"/)) return "string";
     if (stream.match(/^틀"(?:\{[^{}]*\}|\\[\s\S]|[^"\\{])*"/)) return "string";
     if (stream.match(/^\[[^\]]+\]/)) return "typeName";
-    if (stream.match(/^<[^>]+>/)) return "propertyName";
+    if (stream.match(/^<[^ \t\r\n=>][^>\n]*>/)) return "propertyName";
     if (stream.match(/^'[가-힣a-zA-Z0-9_]+'/)) return "variableName";
 
     // 주석: `(참고)` 뒤나 `(참고: ...)`부터 줄 끝까지 (렉서도 그렇게 자른다)

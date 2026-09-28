@@ -15,7 +15,9 @@ interface Spec {
 const SPECS: Spec[] = [
   { kind: tok.STRING, regex: /^"(?:\\[\s\S]|[^"\\])*"/ },
   { kind: tok.VAR, regex: /^'[가-힣a-zA-Z0-9_]+'/ },
-  { kind: tok.FUNCTION, regex: /^<[^>]+>/ },
+  // A name starts right after `<` (not a space or `=`) and stays on its line,
+  // so `<`/`<=` before a function (`<f>() < <g>()`) is a comparison.
+  { kind: tok.FUNCTION, regex: /^<[^ \t\r\n=>][^>\n]*>/ },
   { kind: tok.TYPE, regex: /^\[(?:\([^)]+\))?(?:[가-힣a-zA-Z_][가-힣a-zA-Z0-9_]*|[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:\/[A-Za-z0-9][A-Za-z0-9._-]*){2,})\]/ },
   { kind: tok.LBRACKET, regex: /^\[/ },
   { kind: tok.RBRACKET, regex: /^\]/ },
