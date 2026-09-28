@@ -51,6 +51,11 @@ export interface LangConfig {
   // never match (verified against hana.exe).
   equalsMethodName: string;
 
+  // operatorMethods names the method each arithmetic or comparison operator
+  // calls on an object on its left, by the operator's symbol (spec 3.5).
+  // Mirrors Go's magic.Hari / magic.Kanade.
+  operatorMethods: Record<string, string>;
+
   // locale picks the wording errs.localize renders a runtime error in wherever
   // it becomes user-visible text (a `발생했다면` handler's caught message, the
   // Playground's error output). Mirrors vm.LangConfig.Locale.
@@ -103,6 +108,7 @@ export const KoreanConfig: LangConfig = {
   stringSplitMethod: "분리하기",
   stringContainsMethod: "포함확인",
   equalsMethodName: "기호 같다",
+  operatorMethods: { "+": "기호 더하기", "-": "기호 빼기", "*": "기호 곱하기", "/": "기호 나누기", "%": "기호 나머지", ">": "기호 크다", "<": "기호 작다", ">=": "기호 이상", "<=": "기호 이하" },
   locale: "ko",
   types: { number: "숫자", string: "문자열", boolean: "논리", any: "아무거나", list: "목록", dict: "사전", null: "비어있음" },
 };
