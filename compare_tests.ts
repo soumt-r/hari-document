@@ -427,7 +427,12 @@ const EXTRA_CASES: { name: string; code: string; stdin?: string }[] = [
 ];
 
 // 구문 오류 문구: TS 엔진의 진단을 현지화한 문장이 hana가 보여 주는 문장과 같아야 한다.
-const SYNTAX_CASES: string[] = ["\"a\"를 출력하자 )", "\"a\"를 출력하자 @", "1 +"];
+const SYNTAX_CASES: string[] = [
+    "\"a\"를 출력하자 )", "\"a\"를 출력하자 @", "1 +",
+    // 같은 곳에 같은 이름의 함수, 설계의 두 번째 생성자 (오버로딩은 없음)
+    "<인사>를 만들자 ():\n    1을 돌려주자\n<인사>를 만들자 ('x'):\n    'x'를 돌려주자\n",
+    "[점]을 설계하자:\n    처음 만들어질 때 () 다음과 같이 하자:\n        1을 출력하자\n    처음 만들어질 때 ('x') 다음과 같이 하자:\n        2를 출력하자\n    <값>을 만들자 ():\n        1을 돌려주자\n    <값>을 만들자 ():\n        2를 돌려주자\n",
+];
 
 function goSyntaxMessages(code: string): string[] {
     const tempFile = 'temp_syntax.hr';
