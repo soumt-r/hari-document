@@ -45,7 +45,8 @@ export interface LangConfig {
   stringContainsMethod: string;
 
   // operatorMethods names the method each operator calls on an object on its
-  // left, by the operator's symbol ("==" for both == and !=; spec 3.5).
+  // left, by the operator's symbol ("==" for both == and !=; spec 3.5), and
+  // ("r+" …) the one an arithmetic operator calls on an object on its right.
   // Mirrors Go's magic.Hari / magic.Kanade.
   operatorMethods: Record<string, string>;
 
@@ -100,7 +101,7 @@ export const KoreanConfig: LangConfig = {
   stringReplaceMethod: "바꾸기",
   stringSplitMethod: "분리하기",
   stringContainsMethod: "포함확인",
-  operatorMethods: { "==": "기호 같다", "+": "기호 더하기", "-": "기호 빼기", "*": "기호 곱하기", "/": "기호 나누기", "%": "기호 나머지", ">": "기호 크다", "<": "기호 작다", ">=": "기호 이상", "<=": "기호 이하" },
+  operatorMethods: { "==": "기호 같다", "+": "기호 더하기", "-": "기호 빼기", "*": "기호 곱하기", "/": "기호 나누기", "%": "기호 나머지", ">": "기호 크다", "<": "기호 작다", ">=": "기호 이상", "<=": "기호 이하", "r+": "기호 오른쪽 더하기", "r-": "기호 오른쪽 빼기", "r*": "기호 오른쪽 곱하기", "r/": "기호 오른쪽 나누기", "r%": "기호 오른쪽 나머지" },
   locale: "ko",
   types: { number: "숫자", string: "문자열", boolean: "논리", any: "아무거나", list: "목록", dict: "사전", null: "비어있음" },
 };
