@@ -29,6 +29,8 @@ export interface LangProfile {
   conditionThenWords: string[];
   poppedValueWord: string;
   memberParticle: string;
+  // Closes an index after the member particle ('목록'의 'k'번째); the member chain eats it.
+  ordinalParticle: string;
   typeInWord: string;
   templatePrefix: string;
   templateSuffix: string;
@@ -59,6 +61,7 @@ export const hariProfile: LangProfile = {
   conditionThenWords: ["라면"],
   poppedValueWord: "값",
   memberParticle: "의",
+  ordinalParticle: "번째",
   typeInWord: "인",
   templatePrefix: '틀"',
   templateSuffix: '"',
