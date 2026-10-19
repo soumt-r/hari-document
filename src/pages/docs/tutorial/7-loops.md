@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 7. 반복문 (반복하자)
+title: 8. 반복문 (반복하자)
 description: 똑같은 일을 여러 번 반복해봅시다.
 ---
 

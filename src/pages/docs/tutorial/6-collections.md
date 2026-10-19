@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 6. 묶음 데이터 (배열, 사전)
+title: 7. 묶음 데이터 (배열, 사전)
 description: 여러 개의 데이터를 하나로 묶어봅시다.
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 3. 글자 다루기 (문자열)
+title: 4. 글자 다루기 (문자열)
 description: 글자를 예쁘게 조합하고 특수 기호를 출력해봐요.
 ---
 
@@ -115,4 +115,4 @@ description: 글자를 예쁘게 조합하고 특수 기호를 출력해봐요.
 '이름'을 출력하자
 ```
 
-글자를 하나씩 꺼내서 다루는 방법은 [7장](/docs/tutorial/7-loops)에 있어요.
+글자를 하나씩 꺼내서 다루는 방법은 [8장](/docs/tutorial/7-loops)에 있어요.

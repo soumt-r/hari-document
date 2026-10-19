@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 12. 경로 다루기
+title: 13. 경로 다루기
 description: 파일 경로를 붙이고 나누고 정리하는 [경로] 모듈을 알아봐요.
 ---
 

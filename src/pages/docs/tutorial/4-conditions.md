@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 4. 조건문 (만약 ~라면)
+title: 5. 조건문 (만약 ~라면)
 description: 상황에 따라 다른 행동을 하게 만들어봐요.
 ---
 

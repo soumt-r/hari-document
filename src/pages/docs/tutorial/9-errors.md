@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 9. 에러 처리하기 (예외 처리)
+title: 10. 에러 처리하기 (예외 처리)
 description: 코드가 멈추지 않도록 안전망을 만들어봅시다.
 ---
 

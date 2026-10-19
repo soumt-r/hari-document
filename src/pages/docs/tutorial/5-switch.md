@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 5. 스위치 (조건 분기)
+title: 6. 스위치 (조건 분기)
 description: 값에 따라 여러 갈래로 깔끔하게 나눠봐요.
 ---
 

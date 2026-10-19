@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 8. 함수 (기능 만들기)
+title: 9. 함수 (기능 만들기)
 description: 자주 쓰는 코드를 하나의 기능으로 묶어봐요.
 ---
 

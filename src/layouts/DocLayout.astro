@@ -8,28 +8,21 @@ const navItems = [
     { text: "'하리'는 이런 언어예요!", href: '/docs/intro' },
   ]},
   { title: '기본 문법 튜토리얼', links: [
-    { text: '1. 데이터 담기 (변수)', href: '/docs/tutorial/1-variables' },
-    { text: '2. 계산하기 (연산)', href: '/docs/tutorial/2-math' },
-    { text: '3. 글자 다루기 (문자열)', href: '/docs/tutorial/3-strings' },
-    { text: '4. 조건문 (만약 ~라면)', href: '/docs/tutorial/4-conditions' },
-    { text: '5. 스위치 (조건 분기)', href: '/docs/tutorial/5-switch' },
-    { text: '6. 묶음 데이터 (배열, 사전)', href: '/docs/tutorial/6-collections' },
-    { text: '7. 반복문 (반복하자)', href: '/docs/tutorial/7-loops' },
-    { text: '8. 함수 (기능 만들기)', href: '/docs/tutorial/8-functions' },
-    { text: '9. 에러 처리하기 (예외 처리)', href: '/docs/tutorial/9-errors' },
-    { text: '10. 표준 라이브러리 (도구 상자)', href: '/docs/tutorial/10-stdlib' },
-    { text: '11. 표준 라이브러리 2 (더 많은 도구)', href: '/docs/tutorial/11-stdlib-more' },
-    { text: '12. 경로 다루기', href: '/docs/tutorial/12-paths' },
+    { text: '0. 처음 시작하기', href: '/docs/tutorial/0-start' },
+    { text: '1. 이름표에 값 담기 (변수)', href: '/docs/tutorial/1-variables' },
+    { text: '2. 입력받고 바꾸기', href: '/docs/tutorial/input' },
+    { text: '3. 계산하기 (연산)', href: '/docs/tutorial/2-math' },
+    { text: '4. 글자 다루기 (문자열)', href: '/docs/tutorial/3-strings' },
+    { text: '5. 조건문 (만약 ~라면)', href: '/docs/tutorial/4-conditions' },
+    { text: '6. 스위치 (조건 분기)', href: '/docs/tutorial/5-switch' },
+    { text: '7. 묶음 데이터 (배열, 사전)', href: '/docs/tutorial/6-collections' },
+    { text: '8. 반복문 (반복하자)', href: '/docs/tutorial/7-loops' },
+    { text: '9. 함수 (기능 만들기)', href: '/docs/tutorial/8-functions' },
+    { text: '10. 에러 처리하기 (예외 처리)', href: '/docs/tutorial/9-errors' },
+    { text: '11. 표준 라이브러리 (도구 상자)', href: '/docs/tutorial/10-stdlib' },
+    { text: '12. 표준 라이브러리 2 (더 많은 도구)', href: '/docs/tutorial/11-stdlib-more' },
+    { text: '13. 경로 다루기', href: '/docs/tutorial/12-paths' },
     { text: '부록. 자주 만나는 오류', href: '/docs/tutorial/common-errors' },
-  ]},
-  { title: 'Hana 런타임', links: [
-    { text: 'Hana 런타임이란?', href: '/docs/hana/intro' },
-    { text: '패키지 쓰기와 만들기', href: '/docs/hana/packages' },
-    { text: '실행 파일로 묶기', href: '/docs/hana/pack' },
-    { text: '파일 다루기', href: '/docs/hana/files' },
-    { text: '소켓으로 대화하기', href: '/docs/hana/sockets' },
-    { text: '웹 주소에서 가져오기', href: '/docs/hana/http' },
-    { text: '시간대 (timezone 패키지)', href: '/docs/hana/timezone' },
   ]},
   { title: '객체지향 문법', links: [
     { text: '1. 클래스 (설계도)', href: '/docs/oop/1-classes' },
@@ -50,12 +43,27 @@ const navItems = [
       { text: '9. 커맨드 (Command)', href: '/docs/patterns/9-command' },
       { text: '10. 퍼사드 (Facade)', href: '/docs/patterns/10-facade' },
   ]},
+  { title: 'Hana 런타임', links: [
+    { text: 'Hana 런타임이란?', href: '/docs/hana/intro' },
+    { text: '패키지 쓰기와 만들기', href: '/docs/hana/packages' },
+    { text: '실행 파일로 묶기', href: '/docs/hana/pack' },
+    { text: '파일 다루기', href: '/docs/hana/files' },
+    { text: '소켓으로 대화하기', href: '/docs/hana/sockets' },
+    { text: '웹 주소에서 가져오기', href: '/docs/hana/http' },
+    { text: '시간대 (timezone 패키지)', href: '/docs/hana/timezone' },
+  ]},
   { title: '기술 명세서 (Spec)', links: [
     { text: '1. 언어 개요 및 문법', href: '/docs/tech-spec/1-overview' },
     { text: '2. 구문 트리(AST) 구조', href: '/docs/tech-spec/2-ast' },
     { text: '3. 실행기 및 런타임', href: '/docs/tech-spec/3-runtime' },
   ]}
 ];
+
+// The pages in the order of the menu: the links to the one before and after.
+const pages = navItems.flatMap((section) => section.links);
+const here = pages.findIndex((link) => Astro.url.pathname.replace(/\/$/, '') === link.href);
+const prev = here > 0 ? pages[here - 1] : undefined;
+const next = here >= 0 && here < pages.length - 1 ? pages[here + 1] : undefined;
 ---
 
 <Layout title={`${frontmatter.title} | 하리(Hari) 언어`} customMaxWidth="max-w-6xl">
@@ -94,6 +102,22 @@ const navItems = [
       <h1 class="!mt-0">{frontmatter.title}</h1>
       <p class="text-xl text-ink-soft !mb-12 !mt-0 leading-relaxed border-b border-rule pb-10">{frontmatter.description}</p>
       <slot />
+      {(prev || next) && (
+        <nav class="not-prose mt-16 pt-8 border-t border-rule flex justify-between gap-4 text-sm" aria-label="이전 문서와 다음 문서">
+          {prev ? (
+            <a href={prev.href} class="text-ink-soft hover:text-ink">
+              <span class="block text-ink-faint text-xs mb-1">이전</span>
+              ← {prev.text}
+            </a>
+          ) : <span />}
+          {next ? (
+            <a href={next.href} class="text-right text-ink-soft hover:text-ink">
+              <span class="block text-ink-faint text-xs mb-1">다음</span>
+              {next.text} →
+            </a>
+          ) : <span />}
+        </nav>
+      )}
     </article>
   </div>
 

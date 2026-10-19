@@ -1,6 +1,6 @@
 ---
 layout: ../../../layouts/DocLayout.astro
-title: 2. 계산하기 (연산)
+title: 3. 계산하기 (연산)
 description: 숫자들을 더하고 빼고 계산해봅시다.
 ---
 
