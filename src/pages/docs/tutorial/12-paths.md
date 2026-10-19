@@ -120,4 +120,4 @@ description: 파일 경로를 붙이고 나누고 정리하는 [경로] 모듈�
 
 </details>
 
-다음은 [부록. 자주 만나는 오류](/docs/tutorial/common-errors)예요. 기본 문법을 다 배웠다면 [객체지향 문법](/docs/oop/1-classes)으로 넘어가 보세요.
+다음 장에서는 지금까지 배운 것을 모아 [작은 프로그램](/docs/tutorial/13-projects)을 처음부터 만들어 봐요.
