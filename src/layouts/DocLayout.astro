@@ -31,23 +31,22 @@ const navItems = [
     { text: '3. 상속 (부모님께 물려받기)', href: '/docs/oop/3-inheritance' },
     { text: '4. 인터페이스 (뼈대 약속)', href: '/docs/oop/4-interfaces' },
   ]},
-  { title: '디자인 패턴 (응용)', links: [
-    { text: '1. 싱글톤 (Singleton)', href: '/docs/patterns/1-singleton' },
-    { text: '2. 팩토리 (Factory)', href: '/docs/patterns/2-factory' },
-    { text: '3. 전략 (Strategy)', href: '/docs/patterns/3-strategy' },
-    { text: '4. 옵저버 (Observer)', href: '/docs/patterns/4-observer' },
-    { text: '5. 빌더 (Builder)', href: '/docs/patterns/5-builder' },
-
-      { text: '6. 어댑터 (Adapter)', href: '/docs/patterns/6-adapter' },
-      { text: '7. 데코레이터 (Decorator)', href: '/docs/patterns/7-decorator' },
-      { text: '8. 상태 (State)', href: '/docs/patterns/8-state' },
-      { text: '9. 커맨드 (Command)', href: '/docs/patterns/9-command' },
-      { text: '10. 퍼사드 (Facade)', href: '/docs/patterns/10-facade' },
-      { text: '11. 템플릿 메서드 (Template Method)', href: '/docs/patterns/11-template-method' },
-      { text: '12. 컴포지트 (Composite)', href: '/docs/patterns/12-composite' },
-      { text: '13. 프록시 (Proxy)', href: '/docs/patterns/13-proxy' },
-      { text: '14. 책임 연쇄 (Chain of Responsibility)', href: '/docs/patterns/14-chain-of-responsibility' },
-      { text: '15. 반복자 (Iterator)', href: '/docs/patterns/15-iterator' },
+  { title: '디자인 패턴 (응용)', groups: ['생성 패턴', '구조 패턴', '행동 패턴'], links: [
+    { text: '1. 싱글톤 (Singleton)', href: '/docs/patterns/1-singleton', group: '생성 패턴' },
+    { text: '2. 팩토리 (Factory)', href: '/docs/patterns/2-factory', group: '생성 패턴' },
+    { text: '3. 전략 (Strategy)', href: '/docs/patterns/3-strategy', group: '행동 패턴' },
+    { text: '4. 옵저버 (Observer)', href: '/docs/patterns/4-observer', group: '행동 패턴' },
+    { text: '5. 빌더 (Builder)', href: '/docs/patterns/5-builder', group: '생성 패턴' },
+    { text: '6. 어댑터 (Adapter)', href: '/docs/patterns/6-adapter', group: '구조 패턴' },
+    { text: '7. 데코레이터 (Decorator)', href: '/docs/patterns/7-decorator', group: '구조 패턴' },
+    { text: '8. 상태 (State)', href: '/docs/patterns/8-state', group: '행동 패턴' },
+    { text: '9. 커맨드 (Command)', href: '/docs/patterns/9-command', group: '행동 패턴' },
+    { text: '10. 퍼사드 (Facade)', href: '/docs/patterns/10-facade', group: '구조 패턴' },
+    { text: '11. 템플릿 메서드 (Template Method)', href: '/docs/patterns/11-template-method', group: '행동 패턴' },
+    { text: '12. 컴포지트 (Composite)', href: '/docs/patterns/12-composite', group: '구조 패턴' },
+    { text: '13. 프록시 (Proxy)', href: '/docs/patterns/13-proxy', group: '구조 패턴' },
+    { text: '14. 책임 연쇄 (Chain of Responsibility)', href: '/docs/patterns/14-chain-of-responsibility', group: '행동 패턴' },
+    { text: '15. 반복자 (Iterator)', href: '/docs/patterns/15-iterator', group: '행동 패턴' },
   ]},
   { title: 'Hana 런타임', links: [
     { text: 'Hana 런타임이란?', href: '/docs/hana/intro' },
@@ -65,6 +64,8 @@ const navItems = [
   ]}
 ];
 
+const isActive = (link) => Astro.url.pathname === link.href || Astro.url.pathname === link.href + '/';
+
 // The pages in the order of the menu: the links to the one before and after.
 const pages = navItems.flatMap((section) => section.links);
 const here = pages.findIndex((link) => Astro.url.pathname.replace(/\/$/, '') === link.href);
@@ -75,28 +76,40 @@ const next = here >= 0 && here < pages.length - 1 ? pages[here + 1] : undefined;
 <Layout title={`${frontmatter.title} | 하리(Hari) 언어`} customMaxWidth="max-w-6xl">
   <div class="doc-shell flex flex-col md:flex-row gap-12 lg:gap-16 mt-6">
     <aside class="doc-aside w-full md:w-56 shrink-0 border-b md:border-b-0 border-rule pb-8 md:pb-0">
-      <nav class="md:sticky md:top-10 md:max-h-[calc(100vh-5rem)] md:overflow-y-auto space-y-9 md:pr-2" aria-label="문서 목차">
-        {navItems.map((section) => (
-          <div>
-            <h4 class="font-display font-bold text-ink mb-3 text-[15px]">{section.title}</h4>
-            <ul class="border-l border-rule">
-              {section.links.map((link) => {
-                const isActive = Astro.url.pathname === link.href || Astro.url.pathname === link.href + '/';
-                return (
-                  <li>
-                    <a
-                      href={link.href}
-                      aria-current={isActive ? 'page' : undefined}
-                      class={`block text-sm py-1.5 pl-4 -ml-px border-l-2 transition-colors ${isActive ? 'border-verb text-ink font-semibold' : 'border-transparent text-ink-soft hover:text-ink hover:border-ink-faint'}`}
-                    >
-                      {link.text}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
+      <nav class="md:sticky md:top-10 md:max-h-[calc(100vh-5rem)] md:overflow-y-auto space-y-6 md:pr-2" aria-label="문서 목차">
+        {navItems.map((section) => {
+          // Only the section with the page you are on starts open.
+          const open = section.links.some((link) => isActive(link));
+          const parts = section.groups
+            ? section.groups.map((group) => ({ group, links: section.links.filter((link) => link.group === group) }))
+            : [{ group: undefined, links: section.links }];
+          return (
+            <details class="group" open={open}>
+              <summary class="flex items-center justify-between gap-2 cursor-pointer list-none [&::-webkit-details-marker]:hidden font-display font-bold text-ink text-[15px] mb-3 select-none">
+                <span>{section.title}</span>
+                <span class="text-ink-faint text-xs transition-transform group-open:rotate-90" aria-hidden="true">▶</span>
+              </summary>
+              {parts.map((part) => (
+                <div class={part.group ? 'mb-3' : ''}>
+                  {part.group && <p class="text-xs text-ink-faint mb-1.5 pl-1">{part.group}</p>}
+                  <ul class="border-l border-rule">
+                    {part.links.map((link) => (
+                      <li>
+                        <a
+                          href={link.href}
+                          aria-current={isActive(link) ? 'page' : undefined}
+                          class={`block text-sm py-1.5 pl-4 -ml-px border-l-2 transition-colors ${isActive(link) ? 'border-verb text-ink font-semibold' : 'border-transparent text-ink-soft hover:text-ink hover:border-ink-faint'}`}
+                        >
+                          {link.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </details>
+          );
+        })}
 
         <button id="open-side-playground" class="hr-run solid w-full py-2.5">
           직접 실행해보기
